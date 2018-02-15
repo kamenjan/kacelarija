@@ -1,0 +1,67 @@
+{
+	"name": "kancelarija",
+	"version": "0.0.0",
+	"private": true,
+	"config": {
+		"vendor_css_files": "",
+		"vendor_js_files": ""
+	},
+	"scripts": {
+		"start": "npm run build && NODE_ENV=production node ./app.js",
+		"build": "webpack --config webpack-production.config.js -p",
+		"start-dev": "npm run build-dev && NODE_ENV=development nodemon -e js,less,css ./app.js",
+		"build-dev": "webpack --config webpack-development.config.js",
+		"clean": "rm -rf ./node_modules",
+		"copy-vendor-css": "cp $npm_package_config_vendor_css_files ./public/src/css/vendor",
+		"copy-vendor-js": "cp $npm_package_config_vendor_js_files ./public/src/js/vendor"
+	},
+	"dependencies": {
+		"body-parser": "1.18.2",
+		"bodymovin": "4.13.0",
+		"bootstrap": "4.0.0",
+		"clean-css": "4.1.9",
+		"cookie-session": "latest",
+		"ejs": "2.5.7",
+		"express": "4.16.2",
+		"font-awesome": "4.7.0",
+		"gsap": "1.20.3",
+		"jquery": "3.3.1",
+		"lodash": "3.7.0",
+		"moment": "2.20.1",
+		"morgan": "1.9.0",
+		"pg": "7.4.1",
+		"popper.js": "1.12.9"
+	},
+	"devDependencies": {
+		"babel-cli": "6.26.0",
+		"babel-core": "6.26.0",
+		"babel-loader": "7.1.2",
+		"babel-preset-env": "1.6.1",
+		"clean-webpack-plugin": "latest",
+		"css-loader": "latest",
+		"extract-text-webpack-plugin": "latest",
+		"file-loader": "latest",
+		"jshint": "latest",
+		"jshint-loader": "latest",
+		"less": "3.0.0",
+		"less-loader": "latest",
+		"less-plugin-clean-css": "latest",
+		"node-libs-browser": "latest",
+		"nodemon": "latest",
+		"postcss-loader": "latest",
+		"strip-loader": "latest",
+		"style-loader": "latest",
+		"uglify-loader": "2.0.0",
+		"url-loader": "latest",
+		"webpack": "latest"
+	},
+	"nodemonConfig": {
+		"verbose": true,
+		"ignore": [
+			"public/dist/*"
+		],
+		"events": {
+			"restart": "npm run build-dev"
+		}
+	}
+}

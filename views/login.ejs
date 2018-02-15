@@ -1,0 +1,23 @@
+<%- include('templates/header'); %>
+
+<form method="post" action="/login">
+
+	<% if(typeof(errorMessage) !== 'undefined') {%>
+	<span><%= errorMessage %></span>
+	<% } %>
+	<p>
+		<label for="username">username</label>
+		<input type="text" name="username" id="username" placeholder="username" required="true"/>
+	</p>
+	<p>
+		<label for="password">password</label>
+		<input type="text" name="password" id="password" placeholder="password" required="true"/>
+	</p>
+	<p>
+		<input type="submit" name="login" id="form-submit" value="login"/>
+	</p>
+
+</form>
+
+
+<%- include('templates/footer'); %>

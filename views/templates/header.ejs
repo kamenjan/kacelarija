@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= title %></title>
+		<script src="js/styles.js"></script>
+		<script src="js/main.js"></script>
+	</head>
+<body>
+
+<div id="kn-navbar">
+
+</div>
+
+<% if(session.loggedin) {%>
+	<a href="/logout">logout</a>
+<% } %>
