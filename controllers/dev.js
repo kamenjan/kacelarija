@@ -14,16 +14,26 @@ router.get('/', asyncHandler(async (req, res, next) => {
 
 	let keyPair = await getKey('283a2ce8-21dc-47e4-b0cd-f5cc6fea8e1b');
 
+	/* START Read from remote API */
 	// let market = await getMarket(keyPair.key, keyPair.secret);
 	// await asyncFs.writeFile('./__DEV/balance.json', JSON.stringify(market));
-
+	/* END Read from remote API */
+		/* OR */
+	/* START: Read from file */
 	let market = await asyncFs.readFile('./__DEV/balance.json');
 	market = JSON.parse(market);
+	/* END: Read from file */
 
-	let positiveBalance = market.result.filter( ticker => ticker.Balance > 0 );
+	let balance = market.result.filter( (ticker) => {
+		return ticker.Balance > 0;
+	}).map( ticker => {
+		ticker.Balance = (ticker.Balance).toFixed(8);
+		ticker.Available = (ticker.Available).toFixed(8);
+		return ticker;
+	});
 
 	res.render('dev', {
-		balance: positiveBalance
+		balance: balance
 	})
 
 }));
@@ -62,7 +72,6 @@ function getMarket(key, secret) {
 			resolve(data);
 		});
 	});
-
 }
 
 module.exports = router;
