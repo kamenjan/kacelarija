@@ -23,14 +23,17 @@
 		"cookie-session": "latest",
 		"ejs": "2.5.7",
 		"express": "4.16.2",
+		"express-async-handler": "1.0.3",
 		"font-awesome": "4.7.0",
 		"gsap": "1.20.3",
 		"jquery": "3.3.1",
 		"lodash": "3.7.0",
 		"moment": "2.20.1",
 		"morgan": "1.9.0",
+		"node-bittrex-api": "0.8.3",
 		"pg": "7.4.1",
-		"popper.js": "1.12.9"
+		"popper.js": "1.12.9",
+		"uuid": "3.2.1"
 	},
 	"devDependencies": {
 		"babel-cli": "6.26.0",

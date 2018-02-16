@@ -1,0 +1,8 @@
+<%- include('templates/header'); %>
+
+<% balance.forEach(function(ticker){ %>
+	<div><span><%= ticker.Currency %></span><span><%= ticker.Balance %></span><span><%= ticker.Available %></span></div>
+<% }); %>
+
+<%- include('templates/footer'); %>
+
