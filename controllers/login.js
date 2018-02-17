@@ -3,7 +3,7 @@ let router = express.Router();
 
 let user_m = require('../models/user_model');
 
-/* GET login page. */
+/* GET authenticateUser page. */
 router.get('/login', function (req, res) {
 	res.render('login', {
 		session: req.session
@@ -15,7 +15,7 @@ router.post('/login', function (req, res) {
 	let username = req.body.username;
 	let password = req.body.password;
 
-	user_m.login(username, password).then((response) => {
+	user_m.authenticateUser(username, password).then((response) => {
 
 		if (response) {
 			req.session.uid = response.uid;
@@ -27,6 +27,7 @@ router.post('/login', function (req, res) {
 			});
 		}
 	}).catch((err) => {
+
 
 	});
 });

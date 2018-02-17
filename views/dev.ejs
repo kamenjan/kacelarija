@@ -1,0 +1,26 @@
+<%- include('templates/header'); %>
+
+<div class="content">
+	<table class="balance">
+		<thead>
+			<tr>
+				<th>ticker</th>
+				<th>balance</th>
+				<th>available</th>
+				<th>exchange</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% balance.forEach(function(ticker){ %>
+				<tr>
+					<td><%= ticker.Currency %></td>
+					<td><%= ticker.Balance %></td>
+					<td><%= ticker.Available %></td>
+					<td>exchange</td>
+				</tr>
+			<% }); %>
+		</tbody>
+	</table>
+</div>
+<%- include('templates/footer'); %>
+
