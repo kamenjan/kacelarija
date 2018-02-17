@@ -1,5 +1,3 @@
-/* TODO: Delete this comment; testing git user config */
-
 let express = require('express');
 let router = express.Router();
 
@@ -26,7 +24,7 @@ router.get('/', asyncHandler(async (req, res, next) => {
 
 	let balance = market.result.filter( (ticker) => {
 		return ticker.Balance > 0;
-	}).map( ticker => {
+	}).map( (ticker) => {
 		ticker.Balance = (ticker.Balance).toFixed(8);
 		ticker.Available = (ticker.Available).toFixed(8);
 		return ticker;
@@ -35,7 +33,6 @@ router.get('/', asyncHandler(async (req, res, next) => {
 	res.render('dev', {
 		balance: balance
 	})
-
 }));
 
 async function getKey(id) {

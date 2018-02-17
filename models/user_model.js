@@ -7,7 +7,7 @@ user.getUser = () => {
 
 };
 
-user.login = async function(userName, password) {
+user.authenticateUser = async function(userName, password) {
 
 	let hashPassword = crypto.generateSHA256(password);
 

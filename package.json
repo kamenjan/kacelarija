@@ -16,6 +16,7 @@
 		"copy-vendor-js": "cp $npm_package_config_vendor_js_files ./public/src/js/vendor"
 	},
 	"dependencies": {
+		"binance": "1.3.3",
 		"body-parser": "1.18.2",
 		"bodymovin": "4.13.0",
 		"bootstrap": "4.0.0",

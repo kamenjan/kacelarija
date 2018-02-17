@@ -38,6 +38,7 @@ switch (env) {
 		// console.log('env not set');
 }
 
+
 /* Set up npm middleware for parsing post request bodies */
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -53,11 +54,20 @@ app.use(cookieSession(app.get('config').session));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+
 /* Define local variables to be used by views and templates */
 app.locals.title = 'Kancelarija';
 
+
+/* START DEBUG START */
+const numbers = require('./utils/numbers');
+console.log(numbers.createUUID());
+/* END DEBUG END */
+
+
 /* And of we go ... */
 app.use(require('./controllers/main'));
+
 
 /* Catch 404 and forward to error handler */
 app.use(function(req, res, next) {
@@ -65,6 +75,7 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
 
 /* Development error handler [show stacktrace = TRUE] */
 if (app.get('env') === 'development') {
@@ -76,6 +87,7 @@ if (app.get('env') === 'development') {
     });
   });
 }
+
 
 /* Production error handler [show stacktrace = FALSE] */
 app.use(function(err, req, res, next) {

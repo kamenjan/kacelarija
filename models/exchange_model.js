@@ -1,29 +1,28 @@
 const db = require('../utils/db');
-const crypto = require('../utils/crypto');
 
-let exchange = {};
+let exchange_m = {};
 
-exchange.getBalance = async (exchange) => {
-	const query = `SELECT uid, username FROM users WHERE username ='${userName}' AND password ='${hashPassword}'`;
+exchange_m.getApiKey = async function(uid, exchange) {
+
+	const query = `SELECT key, secret FROM keys WHERE uid ='${uid}' AND name ='${exchange}'`;
+
+	let dbResponse;
 
 	try {
-
-		const res = await db.pool.query(query);
-		if (res.rowCount !== 0) {
-			return res.rows[0];
-		} else {
-			return false;
-		}
-
+		dbResponse = await db.pool.query(query);
 	} catch(err) {
 		console.log('error: ' + err.stack);
 		return err;
 	}
+
+	if (dbResponse.rowCount !== 0) {
+		return dbResponse.rows[0];
+	} else {
+		return false;
+	}
 };
 
-exchange.login = async function() {
 
-};
 
-module.exports = exchange;
+module.exports = exchange_m;
 
