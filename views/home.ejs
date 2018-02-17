@@ -12,14 +12,16 @@
 		</tr>
 		</thead>
 		<tbody>
-		<% balance.forEach(function(ticker){ %>
-		<tr>
-			<td><%= ticker.Currency %></td>
-			<td><%= ticker.Balance %></td>
-			<td><%= ticker.Available %></td>
-			<td>exchange</td>
-		</tr>
-		<% }); %>
+		<% if (balance) { %>
+			<% balance.forEach(function(ticker){ %>
+			<tr>
+				<td><%= ticker.Currency %></td>
+				<td><%= ticker.Balance %></td>
+				<td><%= ticker.Available %></td>
+				<td><%= ticker.Exchange %></td>
+			</tr>
+			<% }); %>
+		<% } %>
 		</tbody>
 	</table>
 </div>

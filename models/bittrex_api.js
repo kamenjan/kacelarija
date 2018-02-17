@@ -10,20 +10,12 @@ bittrexApi.getNonZeroBalances = async () => {
 
 	/* TODO: Grab uid from session ... or something */
 	let keyPair = await exchange_m.getApiKey('4b7a3452-6a76-4ee8-9c0a-184c994f9a0a', 'bittrex');
+	let balance = await _getBalances(keyPair.key, keyPair.secret, true);
 
-	/* START Read from remote API */
-	// let market = await _getBalances(keyPair.key, keyPair.secret);
-	// await asyncFs.writeFile('./__DEV/balance.json', JSON.stringify(market));
-	/* END Read from remote API */
-	/* OR */
-	/* START: Read from file */
-	let market = await asyncFs.readFile('./__DEV/balance.json');
-	market = JSON.parse(market);
-	/* END: Read from file */
-
-	return market.result.filter( (ticker) => {
+	return balance.result.filter( (ticker) => {
 		return ticker.Balance > 0;
 	}).map( (ticker) => {
+		ticker.Exchange = 'bittrex';
 		ticker.Balance = (ticker.Balance).toFixed(8);
 		ticker.Available = (ticker.Available).toFixed(8);
 		return ticker;
@@ -31,7 +23,12 @@ bittrexApi.getNonZeroBalances = async () => {
 };
 
 
-function _getBalances(key, secret) {
+async function _getBalances(key, secret, readFromFile = false) {
+
+	if (readFromFile) {
+		return JSON.parse(await asyncFs.readFile('./__DEV/bittrex_balance.json'));
+	}
+
 	bittrex.options({
 		'apikey' : key,
 		'apisecret' : secret

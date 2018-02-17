@@ -14,11 +14,11 @@ router.get('/', asyncHandler(async (req, res, next) => {
 
 	/* START Read from remote API */
 	// let market = await getMarket(keyPair.key, keyPair.secret);
-	// await asyncFs.writeFile('./__DEV/balance.json', JSON.stringify(market));
+	// await asyncFs.writeFile('./__DEV/bittrex_balance.json', JSON.stringify(market));
 	/* END Read from remote API */
 		/* OR */
 	/* START: Read from file */
-	let market = await asyncFs.readFile('./__DEV/balance.json');
+	let market = await asyncFs.readFile('./__DEV/bittrex_balance.json');
 	market = JSON.parse(market);
 	/* END: Read from file */
 
