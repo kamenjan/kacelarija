@@ -2,7 +2,7 @@ let express = require('express');
 let router = express.Router();
 
 let asyncFs = require('../utils/async_fs');
-// let _ = require('lodash');
+let _ = require('lodash');
 
 /* Awesome package for making routes async functions: https://www.npmjs.com/package/express-async-handler */
 const asyncHandler = require('express-async-handler');
@@ -21,13 +21,17 @@ router.get('/', authMiddleware, asyncHandler(async (req, res) => {
 
 const bittrexApi = require('../models/bittrex_api');
 const binanceApi = require('../models/binance_api');
+const bitstampApi = require('../models/bitstamp_api');
 
 async function updateBalance () {
 
-	let binance = binanceApi.getNonZeroBalances();
-	let bittrex = bittrexApi.getNonZeroBalances();
+	let binance = await binanceApi.getNonZeroBalances();
+	let bittrex = await bittrexApi.getNonZeroBalances();
+	let bitstamp = await bitstampApi.getNonZeroBalances();
 
-	return binance;
+	let merged = _.merge(binance, bittrex, bitstamp);
+
+	return merged;
 
 }
 

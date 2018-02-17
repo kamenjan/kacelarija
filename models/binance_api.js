@@ -33,9 +33,7 @@ async function _getBalances(key, secret, readFromFile = false) {
 		return JSON.parse(await asyncFs.readFile('./__DEV/binance_balance.json'));
 	}
 
-
-	const api = require('binance');
-	const binanceRest = new api.BinanceRest({
+	const binanceRest = new binance.BinanceRest({
 		key: key, // Get this from your account on binance.com
 		secret: secret, // Same for this
 		timeout: 15000, // Optional, defaults to 15000, is the request time out in milliseconds
