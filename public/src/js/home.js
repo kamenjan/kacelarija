@@ -1,6 +1,17 @@
-// require('common.js');
+let $ = require('jquery'); //86kb
+let dataTables = require( 'datatables.net' );
 
-console.log('uletu u src :(');
-var test = $('.test').click(function(e){
-	console.log('klik dzejkueri');
+
+
+$( document ).ready( function () {
+
+	$('table.balance').DataTable({
+		"columnDefs": [
+			{ "orderable": false, "targets": 'nosort' }
+		],
+		"autoWidth": false,
+		"paging": false,
+		"initComplete": function () {}
+	});
+
 });

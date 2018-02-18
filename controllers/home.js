@@ -11,21 +11,8 @@ const authMiddleware = require('../middleware/auth');
 router.get('/', authMiddleware, asyncHandler(async (req, res) => {
 
 	let balance = await updateBalance();
-
-	let totalBTC = balance.map( ticker => {
-		return parseFloat(ticker.total_btc)
-	}).reduce((total, value) => {
-		return total + value;
-	});
-
-	let totalUSD = balance.map( ticker => {
-		return parseFloat(ticker.total_usd);
-	}).reduce((total, value) => {
-		return total + value;
-	});
-
-	console.log(totalBTC);
-	console.log(totalUSD);
+	let totalBTC = balance.map( ticker => parseFloat(ticker.TotalBTC) ).reduce( (total, value) => total + value );
+	let totalUSD = balance.map( ticker => parseFloat(ticker.TotalUSD) ).reduce( (total, value) => total + value );
 
 	res.render('home', {
 		session: req.session,
@@ -40,7 +27,7 @@ router.get('/', authMiddleware, asyncHandler(async (req, res) => {
 const bittrexApi = require('../models/bittrex_api');
 const binanceApi = require('../models/binance_api');
 const bitstampApi = require('../models/bitstamp_api');
-const cryptoCompareApi = require('../models/cryptocompare_api');
+// const cryptoCompareApi = require('../models/cryptocompare_api');
 const coinMarketCapApi = require('../models/coinmarketcap_api');
 
 async function updateBalance () {
@@ -51,26 +38,20 @@ async function updateBalance () {
 
 	/* No price included - will I need this? */
 	// let coinsData = await cryptoCompareApi.getCoinsData();
-	/* Using coinmarketcap API instead */
+	/* Using coinmarketcap API instead TODO: remove cryptoCompare library */
 	let coinsData = await coinMarketCapApi.getCoinsData();
 
-	let merged = _.merge(binance, bittrex, bitstamp);
+	let merged = binance.concat(bittrex, bitstamp);
 
-	return coinsData.filter( ticker => {
-		return _.find(merged, { 'Currency': ticker.symbol });
-	}).map( ticker => {
-		let coinBalance = _.find(merged, { 'Currency': ticker.symbol });
-		ticker.balance = coinBalance.Balance;
-		ticker.available = coinBalance.Available;
-		ticker.source = coinBalance.Exchange;
-
-		ticker.price_btc = parseFloat(ticker.price_btc).toFixed(8);
-		ticker.total_btc = (coinBalance.Balance * ticker.price_btc).toFixed(8);
-		ticker.price_usd = parseFloat(ticker.price_usd).toFixed(2);
-		ticker.total_usd = (coinBalance.Balance * ticker.price_usd).toFixed(2);
-		return ticker;
+	merged.forEach( (exchangeCoin, index) => {
+		let coinPublicData = coinsData.find( element => element.symbol === exchangeCoin.Currency );
+		merged[index].PriceBTC = parseFloat(coinPublicData.price_btc).toFixed(8);
+		merged[index].TotalBTC = parseFloat(merged[index].Balance * coinPublicData.price_btc).toFixed(8);
+		merged[index].PriceUSD = parseFloat(coinPublicData.price_usd).toFixed(2);
+		merged[index].TotalUSD = parseFloat(merged[index].Balance * coinPublicData.price_usd).toFixed(2);
 	});
 
+	return merged;
 }
 
 module.exports = router;

@@ -26,7 +26,7 @@ bitstampApi.getNonZeroBalances = async () => {
 	let balanceParsedNext = [];
 	_.forOwn(balanceParsed, (value, key) => {
 		let ticker = {
-			Exchange: 'bitstamp',
+			Source: 'bitstamp',
 			Currency: key.toUpperCase(),
 			Balance: parseFloat(value.balance).toFixed(8),
 			Available: parseFloat(value.available).toFixed(8)

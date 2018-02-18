@@ -5,11 +5,10 @@
 	<table class="balance">
 		<thead>
 		<tr>
-			<th>ticker</th>
-			<th>balance</th>
-			<th>available</th>
-			<th>source</th>
-
+			<th>Ticker</th>
+			<th>Balance</th>
+			<th>Available</th>
+			<th>Source</th>
 			<th>Price BTC</th>
 			<th>Price USD</th>
 			<th>Total BTC</th>
@@ -20,16 +19,14 @@
 		<% if (balance) { %>
 			<% balance.forEach(function(ticker){ %>
 			<tr>
-				<td><%= ticker.symbol %></td>
-				<td><%= ticker.balance %></td>
-				<td><%= ticker.available %></td>
-				<td><%= ticker.source %></td>
-
-				<td><%= ticker.price_btc %></td>
-				<td><%= ticker.price_usd %></td>
-				<td><%= ticker.total_btc %></td>
-				<td><%= ticker.total_usd %></td>
-
+				<td><%= ticker.Currency %></td>
+				<td><%= ticker.Balance %></td>
+				<td><%= ticker.Available %></td>
+				<td><%= ticker.Source %></td>
+				<td><%= ticker.PriceBTC %></td>
+				<td><%= ticker.PriceUSD %></td>
+				<td><%= ticker.TotalBTC %></td>
+				<td><%= ticker.TotalUSD %></td>
 			</tr>
 			<% }); %>
 		<% } %>

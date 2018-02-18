@@ -18,7 +18,7 @@ bittrexApi.getNonZeroBalances = async () => {
 	return balance.result.filter( (ticker) => {
 		return ticker.Balance > 0;
 	}).map( (ticker) => {
-		ticker.Exchange = 'bittrex';
+		ticker.Source = 'bittrex';
 		ticker.Balance = (ticker.Balance).toFixed(8);
 		ticker.Available = (ticker.Available).toFixed(8);
 		delete ticker.Pending;

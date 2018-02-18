@@ -16,7 +16,7 @@ binanceApi.getNonZeroBalances = async () => {
 	// await asyncFs.writeFile('./__DEV/binance_balance.json', JSON.stringify(balance));
 
 	return balance.balances.map( ticker => {
-		ticker.Exchange = 'binance';
+		ticker.Source = 'binance';
 		ticker.Currency = ticker.asset;
 		ticker.Balance = (parseFloat(ticker.free) + parseFloat(ticker.locked)).toFixed(8);
 		ticker.Available = parseFloat(ticker.free).toFixed(8);

@@ -1,10 +1,8 @@
-console.log('jipikaje from our main.js');
-
 "use strict";
 
-// require('./styles/main.less');
+require('./home');
 
-let $ = require('jquery'); //86kb
+// let $ = require('jquery'); //86kb
 // require('bootstrap');
 // var _ = require('lodash'); //71kb
 // var _ = require('bodymovin'); //249kb

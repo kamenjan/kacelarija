@@ -10,10 +10,8 @@ let coinMarketCapApi = {};
 
 coinMarketCapApi.getCoinsData = async () => {
 	let coinsData = await _coinlist(true);
-
 	/* Write to file for development purposes */
 	// await asyncFs.writeFile('./__DEV/coin_market_cap_data.json', coinsData);
-
 	return coinsData;
 };
 
@@ -27,7 +25,7 @@ async function _coinlist(readFromFile = false) {
 	return new Promise( (resolve, reject) => {
 		request('https://api.coinmarketcap.com/v1/ticker/?limit=0', (error, response, body) => {
 			if (!error && response.statusCode === 200) {
-				resolve(body);
+				resolve(JSON.parse(body));
 			} else {
 				reject(Error(error));
 			}
