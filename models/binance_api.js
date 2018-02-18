@@ -12,6 +12,9 @@ binanceApi.getNonZeroBalances = async () => {
 	let keyPair = await exchange_m.getApiKey('4b7a3452-6a76-4ee8-9c0a-184c994f9a0a', 'binance');
 	let balance = await _getBalances(keyPair.key, keyPair.secret, true);
 
+	/* Write to file for development purposes */
+	// await asyncFs.writeFile('./__DEV/binance_balance.json', JSON.stringify(balance));
+
 	return balance.balances.map( ticker => {
 		ticker.Exchange = 'binance';
 		ticker.Currency = ticker.asset;

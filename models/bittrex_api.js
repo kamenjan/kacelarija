@@ -12,12 +12,17 @@ bittrexApi.getNonZeroBalances = async () => {
 	let keyPair = await exchange_m.getApiKey('4b7a3452-6a76-4ee8-9c0a-184c994f9a0a', 'bittrex');
 	let balance = await _getBalances(keyPair.key, keyPair.secret, true);
 
+	/* Write to file for development purposes */
+	// await asyncFs.writeFile('./__DEV/bittrex_balance.json', JSON.stringify(balance));
+
 	return balance.result.filter( (ticker) => {
 		return ticker.Balance > 0;
 	}).map( (ticker) => {
 		ticker.Exchange = 'bittrex';
 		ticker.Balance = (ticker.Balance).toFixed(8);
 		ticker.Available = (ticker.Available).toFixed(8);
+		delete ticker.Pending;
+		delete ticker.CryptoAddress;
 		return ticker;
 	});
 };

@@ -9,20 +9,43 @@
 			<th>balance</th>
 			<th>available</th>
 			<th>source</th>
+
+			<th>Price BTC</th>
+			<th>Price USD</th>
+			<th>Total BTC</th>
+			<th>Total USD</th>
 		</tr>
 		</thead>
 		<tbody>
 		<% if (balance) { %>
 			<% balance.forEach(function(ticker){ %>
 			<tr>
-				<td><%= ticker.Currency %></td>
-				<td><%= ticker.Balance %></td>
-				<td><%= ticker.Available %></td>
-				<td><%= ticker.Exchange %></td>
+				<td><%= ticker.symbol %></td>
+				<td><%= ticker.balance %></td>
+				<td><%= ticker.available %></td>
+				<td><%= ticker.source %></td>
+
+				<td><%= ticker.price_btc %></td>
+				<td><%= ticker.price_usd %></td>
+				<td><%= ticker.total_btc %></td>
+				<td><%= ticker.total_usd %></td>
+
 			</tr>
 			<% }); %>
 		<% } %>
 		</tbody>
+		<tfoot>
+		<tr>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th><%= (total.btc).toFixed(8) %></th>
+			<th><%= (total.usd).toFixed(2) %></th>
+		</tr>
+		</tfoot>
 	</table>
 </div>
 
