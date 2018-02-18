@@ -27,6 +27,8 @@ router.get('/', authMiddleware, asyncHandler(async (req, res) => {
 const bittrexApi = require('../models/bittrex_api');
 const binanceApi = require('../models/binance_api');
 const bitstampApi = require('../models/bitstamp_api');
+const ethereumApi = require('../models/ethereum_api');
+
 // const cryptoCompareApi = require('../models/cryptocompare_api');
 const coinMarketCapApi = require('../models/coinmarketcap_api');
 
@@ -35,13 +37,14 @@ async function updateBalance () {
 	let binance = await binanceApi.getNonZeroBalances();
 	let bittrex = await bittrexApi.getNonZeroBalances();
 	let bitstamp = await bitstampApi.getNonZeroBalances();
+	let ethereum = await ethereumApi.getBalance();
 
 	/* No price included - will I need this? */
 	// let coinsData = await cryptoCompareApi.getCoinsData();
 	/* Using coinmarketcap API instead TODO: remove cryptoCompare library */
 	let coinsData = await coinMarketCapApi.getCoinsData();
 
-	let merged = binance.concat(bittrex, bitstamp);
+	let merged = binance.concat(bittrex, bitstamp, ethereum);
 
 	merged.forEach( (exchangeCoin, index) => {
 		let coinPublicData = coinsData.find( element => element.symbol === exchangeCoin.Currency );

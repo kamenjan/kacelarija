@@ -4,7 +4,7 @@ let exchange_m = {};
 
 exchange_m.getApiKey = async function(uid, exchange) {
 
-	const query = `SELECT key, secret FROM keys WHERE uid ='${uid}' AND name ='${exchange}'`;
+	const query = `SELECT key, secret, address FROM keys WHERE uid ='${uid}' AND name ='${exchange}'`;
 
 	let dbResponse;
 

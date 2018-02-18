@@ -26,6 +26,7 @@
 		"datatables.net": "1.10.16",
 		"datatables.net-dt": "1.10.16",
 		"ejs": "2.5.7",
+		"etherscan-api": "4.0.0",
 		"express": "4.16.2",
 		"express-async-handler": "1.0.3",
 		"font-awesome": "4.7.0",
@@ -65,7 +66,8 @@
 	"nodemonConfig": {
 		"verbose": true,
 		"ignore": [
-			"public/dist/*"
+			"public/dist/*",
+			"__DEV"
 		],
 		"events": {
 			"restart": "npm run build-dev"
