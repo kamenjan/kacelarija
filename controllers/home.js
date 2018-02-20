@@ -3,12 +3,10 @@ let router = express.Router();
 
 let _ = require('lodash');
 
-/* Awesome package for making routes async functions: https://www.npmjs.com/package/express-async-handler */
-const asyncHandler = require('express-async-handler');
 const authMiddleware = require('../middleware/auth');
 
 /* GET home page. */
-router.get('/', authMiddleware, asyncHandler(async (req, res) => {
+router.get('/', authMiddleware, async (req, res) => {
 
 	let balance = await updateBalance();
 	let totalBTC = balance.map( ticker => parseFloat(ticker.TotalBTC) ).reduce( (total, value) => total + value );
@@ -21,15 +19,17 @@ router.get('/', authMiddleware, asyncHandler(async (req, res) => {
 			btc: totalBTC,
 			usd: totalUSD
 		}
-	})
-}));
+	});
+});
 
 const bittrexApi = require('../models/bittrex_api');
 const binanceApi = require('../models/binance_api');
 const bitstampApi = require('../models/bitstamp_api');
 const ethereumApi = require('../models/ethereum_api');
 
-// const cryptoCompareApi = require('../models/cryptocompare_api');
+/* TODO: Does not work, see module for more info */
+// const bitcoinApi = require('../models/bitcoin_api');
+
 const coinMarketCapApi = require('../models/coinmarketcap_api');
 
 async function updateBalance () {
@@ -38,13 +38,11 @@ async function updateBalance () {
 	let bittrex = await bittrexApi.getNonZeroBalances();
 	let bitstamp = await bitstampApi.getNonZeroBalances();
 	let ethereum = await ethereumApi.getBalance();
-
-	/* No price included - will I need this? */
-	// let coinsData = await cryptoCompareApi.getCoinsData();
-	/* Using coinmarketcap API instead TODO: remove cryptoCompare library */
-	let coinsData = await coinMarketCapApi.getCoinsData();
+	// let bitcoin = await bitcoinApi.getBalance();
 
 	let merged = binance.concat(bittrex, bitstamp, ethereum);
+	let coinsData = await coinMarketCapApi.getCoinsData();
+
 
 	merged.forEach( (exchangeCoin, index) => {
 		let coinPublicData = coinsData.find( element => element.symbol === exchangeCoin.Currency );

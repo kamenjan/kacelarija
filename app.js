@@ -20,6 +20,8 @@ app.set('port', port);
 
 const server = app.listen(port);
 
+/* Environment specifications */
+/* TODO: configure cookie/session encryption based on environment */
 switch (env) {
 	case 'development':
 		let logger = require('morgan');
@@ -65,9 +67,19 @@ console.log(numbers.createUUID());
 /* END DEBUG END */
 
 
+/*
+*  If in development environment, make every response object globally accessible for browser debugging
+*  Use: debug.send();
+*/
+if (app.get('env') === 'development') {
+	app.use(function(req, res, next) {
+		global.debug = res;
+		next();
+	});
+}
+
 /* And of we go ... */
 app.use(require('./controllers/main'));
-
 
 /* Catch 404 and forward to error handler */
 app.use(function(req, res, next) {

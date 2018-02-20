@@ -28,7 +28,6 @@
 		"ejs": "2.5.7",
 		"etherscan-api": "4.0.0",
 		"express": "4.16.2",
-		"express-async-handler": "1.0.3",
 		"font-awesome": "4.7.0",
 		"gsap": "1.20.3",
 		"jquery": "3.3.1",
